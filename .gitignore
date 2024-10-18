@@ -1,0 +1,5 @@
+# python unnecessary files
+__*
+
+# model path
+*.pth

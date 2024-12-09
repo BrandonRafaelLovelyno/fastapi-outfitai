@@ -3,3 +3,6 @@ __*
 
 # model path
 *.pth
+
+# pyenv
+outfit-ai-be/

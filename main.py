@@ -26,7 +26,7 @@ def download_pth():
 
 # Initialize the model and load the checkpoint
 download_pth()
-checkpoint = torch.load(MODEL_PATH)
+checkpoint = torch.load(MODEL_PATH, map_location=torch.device("cpu"))
 model = FasterRCNNResNet50()
 model.load_state_dict(checkpoint["model_state_dict"])
 model.eval()
@@ -81,4 +81,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+torch
+pillow
+torchvision
+pydantic
+python-multipart
+requests

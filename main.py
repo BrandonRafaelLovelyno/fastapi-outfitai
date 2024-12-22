@@ -17,6 +17,12 @@ HF_URL = (
     "https://huggingface.co/brandonRafael/outfit-ai/resolve/main/checkpoint_epoch_4.pth"
 )
 
+def check_pth():
+    try:
+        with open(MODEL_PATH, "rb") as f:
+            return True
+    except FileNotFoundError:
+        return False
 
 def download_pth():
     response = requests.get(HF_URL)
@@ -26,7 +32,10 @@ def download_pth():
 
 
 # Initialize the model and load the checkpoint
-download_pth()
+pth_exist = check_pth()
+if not pth_exist:
+    download_pth()
+    
 checkpoint = torch.load(MODEL_PATH, map_location=torch.device("cpu"))
 model = FasterRCNNResNet50()
 model.load_state_dict(checkpoint["model_state_dict"])

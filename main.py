@@ -51,6 +51,9 @@ def preprocess_image(image_bytes):
 # Initialize the FastAPI app
 app = FastAPI()
 
+@app.get("/")
+async def check_availability():
+    return {"message": "Welcome to the Outfit AI API!", "isAvailable": True}
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):

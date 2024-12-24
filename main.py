@@ -8,8 +8,14 @@ import torchvision.transforms as transforms
 from model import FasterRCNNResNet50
 from PIL import Image
 
+import os
 import io
 import requests
+
+import warnings
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.simplefilter(action="ignore", category=UserWarning)
 
 # Download the checkpoint
 MODEL_PATH = "checkpoint.pth"
@@ -17,14 +23,23 @@ HF_URL = (
     "https://huggingface.co/brandonRafael/outfit-ai/resolve/main/checkpoint_epoch_4.pth"
 )
 
+
+MODEL_PATH = "checkpoint.pth"
+HF_URL = (
+    "https://huggingface.co/brandonRafael/outfit-ai/resolve/main/checkpoint_epoch_4.pth"
+)
+
+
 def check_pth():
-    try:
-        with open(MODEL_PATH, "rb") as f:
-            return True
-    except FileNotFoundError:
+    if os.path.exists(MODEL_PATH):
+        return True
+    else:
         return False
 
+
 def download_pth():
+    print("Downloading the checkpoint...")
+
     response = requests.get(HF_URL)
 
     with open(MODEL_PATH, "wb") as f:
@@ -35,7 +50,7 @@ def download_pth():
 pth_exist = check_pth()
 if not pth_exist:
     download_pth()
-    
+
 checkpoint = torch.load(MODEL_PATH, map_location=torch.device("cpu"))
 model = FasterRCNNResNet50()
 model.load_state_dict(checkpoint["model_state_dict"])
@@ -69,9 +84,11 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+
 @app.get("/")
 async def check_availability():
     return {"message": "Welcome to the Outfit AI API!", "isAvailable": True}
+
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):

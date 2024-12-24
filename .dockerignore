@@ -2,8 +2,6 @@ __pycache__
 data/
 logs/
 *.log
-outfit-ai-be/
-checkpoint.pth
 **/.git
 **/.gitignore
 **/.vscode

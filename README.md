@@ -31,8 +31,8 @@ Ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/BrandonRafaelLovelyno/fastapi-cloth-classifier.git
-cd fastapi-cloth-classifier
+git clone https://github.com/BrandonRafaelLovelyno/outfit-ai-be.git
+cd outfit-ai-be
 ```
 
 2. Install dependencies:
